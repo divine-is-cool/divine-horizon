@@ -1,38 +1,241 @@
-body {
-    background-color: rgb(255, 239, 231);
-    font-family: Arial, Helvetica, sans-serif;
+/* Dark theme with gold & purple accents for Horizon */
+
+:root{
+  --bg: #0f0b14;
+  --panel: #15121b;
+  --muted: #9b8fb2;
+  --gold: #e0b44a;
+  --purple: #7c4dff;
+  --accent: linear-gradient(90deg, var(--gold), var(--purple));
+  --text: #f5f3f7;
+  --subtext: #bfb8d6;
+  --danger: #ff6b6b;
+  --glass: rgba(255,255,255,0.03);
 }
 
-header {
-    text-align: center;
+/* Reset some bootstrap clashes */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  background: radial-gradient(1200px 400px at 10% 10%, rgba(124,77,255,0.08), transparent),
+              radial-gradient(800px 300px at 90% 90%, rgba(224,180,74,0.06), transparent),
+              var(--bg);
+  color: var(--text);
 }
 
-header h1 {
-    margin-top: 0;
-    font-weight: bold;
+.h-header {
+  display:flex;
+  align-items:center;
+  padding: 12px 18px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
-header img {
-    width: 200px;
+.branding {
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.input-group-text,
-.disable-text {
-    cursor: default;
-    user-select: none;
+.branding img#logo {
+  width:56px;
+  height:56px;
+  object-fit:contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
 }
 
-table.table-bordered {
-	background-color: inherit !important;
-    border: 1px solid #c1c1c1;
+.title .name {
+  font-size:18px;
+  font-weight:700;
+  color: var(--gold);
+}
+.title .subtitle {
+  font-size:12px;
+  color: var(--muted);
 }
 
-table.table-bordered>thead>tr>th {
-	background-color: inherit !important;
-    border: 1px solid #c1c1c1;
+/* Topbar */
+.topbar {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 12px;
+  background: var(--panel);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
-table.table-bordered>tbody>tr>td {
-	background-color: inherit !important;
-    border: 1px solid #c1c1c1;
+.nav-controls {
+  display:flex;
+  gap:6px;
+  padding-left:6px;
+}
+
+.h-btn {
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--text);
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  transition: transform .12s ease, background .12s ease;
+}
+.h-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.02); }
+.h-small-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; padding: 6px; }
+
+.address-container {
+  flex:1;
+  display:flex;
+}
+.address-input {
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border: 1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
+  color: var(--text);
+  outline: none;
+  box-shadow: none;
+  font-size:14px;
+}
+.address-input::placeholder { color: var(--subtext); }
+
+.action-controls {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding-right:8px;
+}
+
+/* Bookmark bar */
+.bookmark-bar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+}
+.bookmarks {
+  display:flex;
+  gap:6px;
+  flex:1;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+.bookmark {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  color: var(--text);
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+/* Tabs bar */
+.tabs-bar {
+  display:flex;
+  gap:6px;
+  padding:8px 12px;
+  overflow-x:auto;
+  align-items:center;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+.tab {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:6px;
+  background: rgba(255,255,255,0.01);
+  border: 1px solid rgba(255,255,255,0.01);
+  cursor:pointer;
+  color: var(--subtext);
+  transition: transform .18s cubic-bezier(.2,.9,.2,1), opacity .18s ease;
+}
+.tab:hover { transform: translateY(-4px); color: var(--text); }
+.tab.enter { transform: scale(.95) translateY(10px); opacity:0; animation: tabIn .32s forwards; }
+@keyframes tabIn { to { transform: none; opacity:1; } }
+.tab.active {
+  background: linear-gradient(90deg, rgba(224,180,74,0.08), rgba(124,77,255,0.06));
+  color: var(--text);
+  border-color: rgba(224,180,74,0.12);
+}
+.tab-title { max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13px; }
+.tab-close {
+  background:transparent;
+  border:none;
+  color: var(--subtext);
+  cursor:pointer;
+}
+
+/* Content area */
+.content-area {
+  height: calc(100vh - 220px);
+  background: radial-gradient(circle at 10% 30%, rgba(124,77,255,0.025), transparent);
+  padding:12px;
+  overflow:hidden;
+}
+.home-view {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  color:var(--text);
+}
+.home-view h1 { font-size:28px; margin:0; color:var(--gold); }
+.home-sub { color:var(--muted); }
+.home-search { display:flex; gap:8px; margin-top:8px; }
+.btn-gold {
+  background: linear-gradient(90deg, var(--gold), var(--purple));
+  border:none; color: #111;
+}
+
+/* iframe wrapper and animations */
+.content-wrapper { width:100%; height:100%; position:relative; overflow:hidden; }
+.iframe-wrapper {
+  width:100%;
+  height:100%;
+  transition: opacity .25s ease, transform .25s ease;
+  position:absolute;
+  inset:0;
+  background: #111;
+}
+.iframe-wrapper.enter { opacity:0; transform: scale(.995); animation: contentIn .28s forwards; }
+@keyframes contentIn { to { opacity:1; transform:none; } }
+.h-iframe {
+  width:100%;
+  height:100%;
+  border: none;
+  background: #fff;
+  display:block;
+}
+
+/* Internal pages (history/settings/time/chat) */
+.internal-page {
+  padding:16px;
+  color:var(--text);
+  overflow:auto;
+}
+.history-list { list-style:none; padding:0; margin:12px 0; }
+.history-list li { padding:6px 0; border-bottom: 1px dashed rgba(255,255,255,0.02); }
+.clock { font-size:20px; color:var(--muted); }
+
+/* Footer */
+.h-footer {
+  padding: 8px 12px;
+  color:var(--muted);
+  font-size:12px;
+  border-top:1px solid rgba(255,255,255,0.02);
+}
+
+/* Responsive tweaks */
+@media (max-width:720px) {
+  .brand .title { display:none; }
+  .tabs-bar { display:block; max-height:48px; overflow:auto; }
+  .content-area { height: calc(100vh - 260px); }
 }
